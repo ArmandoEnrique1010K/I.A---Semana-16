@@ -1,8 +1,6 @@
 import cv2
-import numpy as np
 import tkinter as tk
-from tkinter import ttk
-from tkinter import filedialog
+from tkinter import ttk, filedialog, messagebox
 from PIL import Image, ImageTk
 from color import ContadorColor
 from grupo import ContadorGrupos
@@ -13,10 +11,16 @@ class Interfaz:
     def __init__(self, root):
         self.root = root
         self.root.title("Contador de Fichas")
+
+        # Crear un objeto Style
+        style = ttk.Style()
+
+        # Configurar el estilo del Label
+        style.configure("Titulo.TLabel", background="#ffffff", font=("Helvetica", 16))
+
+        # Título
         self.titulo_label = ttk.Label(
-            self.root,
-            text="Contador de Fichas",
-            font=("Helvetica", 16),
+            self.root, text="Contador de Fichas", style="Titulo.TLabel"
         )
         self.titulo_label.grid(row=0, column=0, columnspan=4, pady=10)
 
@@ -54,7 +58,7 @@ class Interfaz:
 
     def mostrar_imagen(self):
         if not self.imagen_path.get():
-            tk.messagebox.showerror(
+            messagebox.showerror(
                 "Error", "Por favor, carga una imagen antes de intentar mostrarla."
             )
             return
@@ -87,7 +91,7 @@ class Interfaz:
 
             # Muestra el resultado en un cuadro de mensaje
             mensaje = f"Cantidad de fichas del color especificado: {fichas_color}"
-            tk.messagebox.showinfo("Conteo de Fichas", mensaje)
+            messagebox.showinfo("Conteo de Fichas", mensaje)
 
             # Actualizar la imagen después del conteo
             self.mostrar_imagen()
@@ -105,7 +109,7 @@ class Interfaz:
             )
             # Muestra el resultado en un cuadro de mensaje
             mensaje = f"Grupo de fichas del color especificado: {fichas_color}"
-            tk.messagebox.showinfo("Conteo de Fichas", mensaje)
+            messagebox.showinfo("Conteo de Fichas", mensaje)
 
             # Actualizar la imagen después del conteo
             self.mostrar_imagen()
@@ -123,17 +127,12 @@ class Interfaz:
             )
             # Muestra el resultado en un cuadro de mensaje
             mensaje = f"Fila de fichas del color especificado: {fichas_color}"
-            tk.messagebox.showinfo("Conteo de Fichas", mensaje)
+            messagebox.showinfo("Conteo de Fichas", mensaje)
 
             # Actualizar la imagen después del conteo
             self.mostrar_imagen()
 
     def crear_widgets(self):
-        # Título
-        ttk.Label(self.root, text="Contador de Fichas", font=("Helvetica", 16)).grid(
-            row=0, column=0, columnspan=4, pady=10
-        )
-
         # Área de visualización de la imagen
         self.imagen_label = ttk.Label(self.root)
         self.imagen_label.grid(row=1, column=0, columnspan=4)
